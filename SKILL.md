@@ -11,8 +11,16 @@ allowed-tools: Bash, Read, Write, Edit, Glob, AskUserQuestion
 Generate beautifully typeset, brand-consistent PDF documents from Markdown input.
 
 ## Setup
-- Repo: `~/Desktop/comutato/comutato-docs`
-- Venv: `~/Desktop/comutato/comutato-docs/.venv`
+
+**IMPORTANT:** Before running any command, resolve the install directory. The SKILL.md you are reading is symlinked from the repo. To find the repo root:
+
+```bash
+DOCS_DIR="$(dirname "$(readlink -f ~/.claude/skills/docs/SKILL.md)")"
+```
+
+Use `$DOCS_DIR` in all commands below instead of a hardcoded path.
+
+- Venv: `$DOCS_DIR/.venv`
 - Dependencies: weasyprint, jinja2, python-frontmatter, markdown, pyphen
 
 ## Document Types
@@ -62,7 +70,7 @@ Before rendering, check:
 ### Step 3: Render
 
 ```bash
-source ~/Desktop/comutato/comutato-docs/.venv/bin/activate && python -m docs contract {{input_file}} --lang {{lang}} --output ~/Downloads/{{input_basename}}.pdf
+DOCS_DIR="$(dirname "$(readlink -f ~/.claude/skills/docs/SKILL.md)")" && cd "$DOCS_DIR" && source .venv/bin/activate && python -m docs contract {{input_file}} --lang {{lang}} --output ~/Downloads/{{input_basename}}.pdf
 ```
 
 If the user provides an explicit `--output` path, use that instead of `~/Downloads/`.
@@ -96,22 +104,24 @@ Content must be written in the target language — the skill does NOT translate.
 ## Examples
 
 ```bash
+DOCS_DIR="$(dirname "$(readlink -f ~/.claude/skills/docs/SKILL.md)")" && cd "$DOCS_DIR" && source .venv/bin/activate
+
 # Russian contract
-source ~/Desktop/comutato/comutato-docs/.venv/bin/activate && python -m docs contract contract.md --lang ru
+python -m docs contract contract.md --lang ru
 
 # English contract with custom output path
-source ~/Desktop/comutato/comutato-docs/.venv/bin/activate && python -m docs contract contract_en.md --lang en --output ~/Documents/contract_final.pdf
+python -m docs contract contract_en.md --lang en --output ~/Documents/contract_final.pdf
 ```
 
 ## Update
 
 To check for and install updates:
 ```bash
-source ~/Desktop/comutato/comutato-docs/.venv/bin/activate && python -m docs update
+DOCS_DIR="$(dirname "$(readlink -f ~/.claude/skills/docs/SKILL.md)")" && cd "$DOCS_DIR" && source .venv/bin/activate && python -m docs update
 ```
 
 This fetches the latest version from GitHub, shows what changed, pulls updates, and reinstalls dependencies if needed.
 
 ## Company Config
 
-Requisites are stored in `~/Desktop/comutato/comutato-docs/config/company.yaml`. This file is gitignored. To set up for a new installation, copy `company.sample.yaml` and fill in real details.
+Requisites are stored in `$DOCS_DIR/config/company.yaml`. This file is gitignored. To set up for a new installation, copy `company.sample.yaml` and fill in real details.
