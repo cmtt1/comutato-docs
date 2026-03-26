@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ meta.get('number', 'Contract') }}</title>
+    <style>
+        :root {
+            --header-text: "{{ header_text }}";
+            --footer-text: "{{ company_legal_name }} · {{ company_address }} · {{ company_email }}";
+        }
+        {{ css }}
+    </style>
+</head>
+<body>
+
+{# ── TITLE PAGE ── #}
+<div class="contract-title-page">
+    <h1>{{ meta.get('title', '') }}</h1>
+    <div class="contract-number">{{ meta.get('number', '') }}</div>
+    <div class="contract-date">{{ meta.get('date', '') }}</div>
+
+    {# Parties summary on title page #}
+    {% if meta.get('parties') %}
+    <div class="contract-parties">
+        <table>
+            <tr>
+                {% for party in meta.parties %}
+                <td>
+                    <div class="party-role">{{ party.get('role', '') }}</div>
+                    <div class="party-name">{{ party.get('name', '') }}</div>
+                    {% if party.get('represented_by') %}
+                    <div class="party-represented">{{ party.represented_by }}</div>
+                    {% endif %}
+                </td>
+                {% endfor %}
+            </tr>
+        </table>
+    </div>
+    {% endif %}
+</div>
+
+{# ── CONTRACT BODY ── #}
+<div class="contract-body">
+    {{ body | safe }}
+</div>
+
+{# ── SIGNATURES BLOCK ── #}
+{% if meta.get('parties') %}
+<div class="contract-signatures">
+    <h2>
+        {% if lang == 'ru' %}Подписи сторон
+        {% elif lang == 'ro' %}Semnăturile părților
+        {% else %}Signatures
+        {% endif %}
+    </h2>
+    <table>
+        <tr>
+            {% for party in meta.parties %}
+            <td>
+                <div class="party-role">{{ party.get('role', '') }}</div>
+                <div class="party-name">{{ party.get('name', '') }}</div>
+                {% if party.get('represented_by') %}
+                <div class="party-represented">{{ party.represented_by }}</div>
+                {% endif %}
+                <div class="signature-line"></div>
+                <div class="signature-label">
+                    {% if lang == 'ru' %}Подпись / Дата
+                    {% elif lang == 'ro' %}Semnătura / Data
+                    {% else %}Signature / Date
+                    {% endif %}
+                </div>
+                <div class="stamp-placeholder">
+                    {% if lang == 'ru' %}М.П.
+                    {% elif lang == 'ro' %}L.Ș.
+                    {% else %}Seal
+                    {% endif %}
+                </div>
+            </td>
+            {% endfor %}
+        </tr>
+    </table>
+</div>
+{% endif %}
+
+</body>
+</html>

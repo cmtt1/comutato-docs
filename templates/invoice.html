@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ meta.get('title', 'Cont de plată') }} {{ meta.get('number', '') }}</title>
+    <style>
+        :root {
+            --header-text: "{{ header_text }}";
+            --footer-text: "{{ company_legal_name }} · {{ company_address }} · {{ company_email }}";
+        }
+        {{ css }}
+    </style>
+</head>
+<body>
+
+<div class="invoice-header">
+    <h1>{{ meta.get('title', 'Cont de plată') }} nr. {{ meta.get('number', '___') }}</h1>
+    <div class="invoice-date-city">
+        <span class="invoice-date">{{ meta.get('date', '') }}</span>
+        <span class="invoice-city">{{ meta.get('city', '') }}</span>
+    </div>
+</div>
+
+{# ── PARTIES ── #}
+<div class="invoice-parties">
+    <table>
+        <tr>
+            {% for party in meta.get('parties', []) %}
+            <td>
+                <div class="party-label">{{ party.get('role', '') }}:</div>
+                <div class="party-name">{{ party.get('name', '') }}</div>
+                {% if party.get('address') %}
+                <div class="party-detail">{{ party.address }}</div>
+                {% endif %}
+                {% if party.get('tax_id') %}
+                <div class="party-detail">c/f {{ party.tax_id }}</div>
+                {% endif %}
+                {% if party.get('bank') %}
+                <div class="party-detail">{{ party.bank }}</div>
+                {% endif %}
+                {% if party.get('swift') %}
+                <div class="party-detail">{{ party.swift }}</div>
+                {% endif %}
+                {% if party.get('iban') %}
+                <div class="party-detail">IBAN: {{ party.iban }}</div>
+                {% endif %}
+                {% if party.get('account') %}
+                <div class="party-detail">Cont: {{ party.account }}</div>
+                {% endif %}
+            </td>
+            {% endfor %}
+        </tr>
+    </table>
+</div>
+
+{# ── CONTRACT REFERENCE ── #}
+{% if meta.get('contract_ref') %}
+<div class="invoice-contract-ref">
+    {{ meta.contract_ref }}
+</div>
+{% endif %}
+
+{# ── TRANCHE LABEL ── #}
+{% if meta.get('tranche_label') %}
+<div class="invoice-tranche-label">
+    {{ meta.tranche_label }}
+</div>
+{% endif %}
+
+{# ── ITEMS TABLE ── #}
+<table class="invoice-table">
+    <thead>
+        <tr>
+            <th class="col-nr">Nr.</th>
+            <th class="col-desc">
+                {% if lang == 'ro' %}Descriere serviciu
+                {% elif lang == 'ru' %}Описание услуги
+                {% else %}Service description
+                {% endif %}
+            </th>
+            <th class="col-basis">
+                {% if lang == 'ro' %}Temei contractual
+                {% elif lang == 'ru' %}Основание
+                {% else %}Contractual basis
+                {% endif %}
+            </th>
+            <th class="col-amount">
+                {% if lang == 'ro' %}Sumă ({{ meta.get('currency', 'EUR') }})
+                {% elif lang == 'ru' %}Сумма ({{ meta.get('currency', 'EUR') }})
+                {% else %}Amount ({{ meta.get('currency', 'EUR') }})
+                {% endif %}
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in meta.get('items', []) %}
+        <tr>
+            <td class="col-nr">{{ item.get('nr', loop.index) }}</td>
+            <td class="col-desc">
+                {{ item.get('description', '') }}
+                {% if item.get('details') %}
+                <div class="item-details">{{ item.details }}</div>
+                {% endif %}
+            </td>
+            <td class="col-basis">{{ item.get('basis', '') }}</td>
+            <td class="col-amount">{{ item.get('amount', '') }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr class="invoice-total-row">
+            <td></td>
+            <td class="total-label">TOTAL DE PLAT&#258;</td>
+            <td class="total-vat">{{ meta.get('vat_note', 'inclusiv TVA') }}</td>
+            <td class="col-amount total-amount">{{ meta.get('total', '') }} {{ meta.get('currency', 'EUR') }}</td>
+        </tr>
+    </tfoot>
+</table>
+
+{# ── NOTES ── #}
+{% if meta.get('notes') %}
+<div class="invoice-notes">
+    <div class="notes-label">
+        {% if lang == 'ro' %}Not&#259;:
+        {% elif lang == 'ru' %}Примечание:
+        {% else %}Note:
+        {% endif %}
+    </div>
+    {% for note in meta.notes %}
+    <p>{{ note }}</p>
+    {% endfor %}
+</div>
+{% endif %}
+
+{# ── PAYMENT TERM ── #}
+{% if meta.get('payment_term') %}
+<div class="invoice-payment-term">
+    {{ meta.payment_term }}
+</div>
+{% endif %}
+
+{# ── SIGNATURES ── #}
+{% if meta.get('parties') %}
+<div class="invoice-signatures">
+    <table>
+        <tr>
+            {% for party in meta.parties %}
+            <td>
+                <div class="sig-role">{{ party.get('role', '') }}:</div>
+                <div class="sig-company">{{ party.get('name', '') }}</div>
+                {% if party.get('represented_by') %}
+                <div class="sig-person">{{ party.represented_by }}</div>
+                {% endif %}
+                <div class="sig-line"></div>
+            </td>
+            {% endfor %}
+        </tr>
+    </table>
+</div>
+{% endif %}
+
+</body>
+</html>

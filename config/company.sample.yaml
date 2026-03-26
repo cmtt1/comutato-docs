@@ -1,0 +1,30 @@
+company:
+  name: "comutato"
+  legal_name:
+    en: "Comutato SRL"
+    ru: "Comutato SRL"
+    ro: "Comutato SRL"
+  address:
+    en: "Your address here"
+    ru: "Ваш адрес здесь"
+    ro: "Adresa dvs. aici"
+  tax_id: "YOUR_TAX_ID"
+  registration: "YOUR_REGISTRATION_NUMBER"
+  bank:
+    name: "Your Bank Name"
+    iban: "YOUR_IBAN"
+    swift: "YOUR_SWIFT"
+  contact:
+    email: "hello@example.com"
+    phone: "+1234567890"
+    website: "example.com"
+
+branding:
+  primary_color: "#1a1a1a"
+  accent_color: "#2563eb"
+  background: "#ffffff"
+  header_text: "comutato"
+  fonts:
+    serif: "EB Garamond"
+    sans: "Inter"
+    mono: "JetBrains Mono"

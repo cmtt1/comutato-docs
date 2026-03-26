@@ -1,0 +1,11 @@
+config/company.yaml
+.venv/
+__pycache__/
+*.pyc
+*.pdf
+.DS_Store
+.pytest_cache/
+*.egg-info/
+dist/
+build/
+lagmar-*.md

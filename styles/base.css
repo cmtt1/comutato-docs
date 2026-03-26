@@ -1,0 +1,205 @@
+/* ═══════════════════════════════════════════════════════
+   COMUTATO — Base Document Styles
+   Shared typography, colors, page setup for all document types.
+   ═══════════════════════════════════════════════════════ */
+
+/* ── PAGE SETUP ── */
+@page {
+    size: A4;
+    margin: 25mm 20mm 28mm 20mm;
+    background: #ffffff;
+
+    @top-left {
+        content: var(--header-text, "comutato");
+        font-family: 'EB Garamond', Georgia, 'Times New Roman', serif;
+        font-size: 9pt;
+        color: #999999;
+        letter-spacing: 0.05em;
+    }
+
+    @top-right {
+        content: "Page " counter(page) " of " counter(pages);
+        font-family: 'EB Garamond', Georgia, 'Times New Roman', serif;
+        font-size: 9pt;
+        color: #999999;
+    }
+
+    @bottom-center {
+        font-family: 'EB Garamond', Georgia, 'Times New Roman', serif;
+        font-size: 8pt;
+        color: #999999;
+    }
+}
+
+/* First page — no header, centered title */
+@page :first {
+    @top-left { content: none; }
+    @top-right { content: none; }
+}
+
+/* ── BASE RESET ── */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* ── BODY ── */
+body {
+    font-family: 'EB Garamond', Georgia, 'Times New Roman', serif;
+    font-size: 12pt;
+    line-height: 1.6;
+    color: #1a1a1a;
+    background: #ffffff;
+    hyphens: auto;
+    -webkit-hyphens: auto;
+    orphans: 3;
+    widows: 3;
+}
+
+/* ── HEADINGS ── */
+h1 {
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 20pt;
+    font-weight: 600;
+    line-height: 1.2;
+    color: #1a1a1a;
+    margin: 0 0 16pt 0;
+    page-break-after: avoid;
+}
+
+h2 {
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 16pt;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 20pt 0 10pt 0;
+    page-break-after: avoid;
+    break-after: avoid;
+    page-break-before: auto;
+}
+
+h3 {
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 14pt;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 16pt 0 8pt 0;
+    page-break-after: avoid;
+    break-after: avoid;
+}
+
+h4 {
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 12pt;
+    font-weight: 600;
+    color: #333333;
+    margin: 12pt 0 6pt 0;
+    page-break-after: avoid;
+    break-after: avoid;
+}
+
+/* ── PARAGRAPHS ── */
+p {
+    margin-bottom: 8pt;
+    text-align: justify;
+}
+
+/* ── LISTS ── */
+ul, ol {
+    margin: 6pt 0 10pt 0;
+    padding-left: 20pt;
+}
+
+ul {
+    list-style-type: "—  ";
+}
+
+li {
+    margin-bottom: 4pt;
+    line-height: 1.5;
+    padding-left: 4pt;
+}
+
+/* ── TABLES ── */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 10pt;
+    margin: 12pt 0;
+    page-break-inside: avoid;
+    break-inside: avoid;
+}
+
+/* Table rows must never split across pages */
+tr {
+    page-break-inside: avoid;
+    break-inside: avoid;
+}
+
+thead tr {
+    background: #f5f5f5;
+    border-bottom: 1.5pt solid #1a1a1a;
+}
+
+th {
+    text-align: left;
+    padding: 6pt 8pt;
+    font-size: 10pt;
+    font-weight: 600;
+    color: #1a1a1a;
+    font-family: 'EB Garamond', Georgia, serif;
+}
+
+td {
+    padding: 5pt 8pt;
+    color: #1a1a1a;
+    border-bottom: 0.5pt solid #e0e0e0;
+    vertical-align: top;
+    line-height: 1.4;
+}
+
+/* Alternating row shading */
+tbody tr:nth-child(even) {
+    background: #f9f9f9;
+}
+
+/* ── SECTION START — 1/5-page rule ──
+   A new section moves to the next page only if it would start in the
+   last 1/5 of the page body.  We wrap the heading + first two content
+   blocks (~120-160pt of natural content) in a non-breakable container.
+   If that chunk doesn't fit, WeasyPrint pushes it to the next page.
+   No min-height — avoids artificial whitespace mid-page. */
+.section-start {
+    page-break-inside: avoid;
+    break-inside: avoid;
+}
+
+/* ── HORIZONTAL RULE ── */
+hr {
+    border: none;
+    border-top: 0.5pt solid #cccccc;
+    margin: 16pt 0;
+}
+
+/* ── STRONG / EM ── */
+strong {
+    font-weight: 600;
+}
+
+em {
+    font-style: italic;
+}
+
+/* ── BLOCKQUOTE ── */
+blockquote {
+    border-left: 2pt solid #cccccc;
+    margin: 10pt 0;
+    padding: 6pt 12pt;
+    color: #444444;
+    font-style: italic;
+}
+
+blockquote p {
+    margin: 0;
+}

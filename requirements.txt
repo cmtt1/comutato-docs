@@ -1,0 +1,7 @@
+weasyprint>=60.0
+Jinja2>=3.1
+python-frontmatter>=1.0
+markdown>=3.5
+pyphen>=0.14
+PyYAML>=6.0
+PyMuPDF>=1.24

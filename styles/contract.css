@@ -1,0 +1,164 @@
+/* ═══════════════════════════════════════════════════════
+   COMUTATO — Contract Styles
+   Professional legal document typography.
+   ═══════════════════════════════════════════════════════ */
+
+/* ── CONTRACT PAGE — footer with company info ── */
+@page {
+    @bottom-center {
+        content: var(--footer-text, "");
+    }
+}
+
+/* ── TITLE PAGE ── */
+.contract-title-page {
+    text-align: center;
+    padding-top: 140pt;
+    page-break-after: always;
+}
+
+.contract-title-page h1 {
+    font-size: 22pt;
+    font-weight: 600;
+    margin-bottom: 20pt;
+    text-align: center;
+    border: none;
+}
+
+.contract-number {
+    font-size: 13pt;
+    color: #444444;
+    margin-bottom: 8pt;
+}
+
+.contract-date {
+    font-size: 12pt;
+    color: #444444;
+    margin-bottom: 36pt;
+    padding-bottom: 24pt;
+    border-bottom: 0.5pt solid #cccccc;
+}
+
+/* ── PARTIES BLOCK ── */
+.contract-parties {
+    margin: 24pt 0;
+    page-break-inside: avoid;
+}
+
+.contract-parties table {
+    width: 100%;
+    border: none;
+    margin: 0;
+}
+
+.contract-parties td {
+    border: none;
+    padding: 8pt 12pt;
+    vertical-align: top;
+    width: 50%;
+    background: none;
+}
+
+.contract-parties .party-role {
+    font-weight: 600;
+    font-size: 11pt;
+    color: #666666;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 4pt;
+}
+
+.contract-parties .party-name {
+    font-size: 12pt;
+    font-weight: 600;
+    color: #1a1a1a;
+}
+
+.contract-parties .party-represented {
+    font-size: 10pt;
+    color: #666666;
+    font-style: italic;
+}
+
+/* ── CONTRACT BODY ── */
+.contract-body {
+    margin-top: 16pt;
+}
+
+.contract-body h2 {
+    font-size: 14pt;
+    font-weight: 600;
+    margin: 24pt 0 10pt 0;
+    border-bottom: none;
+}
+
+.contract-body h3 {
+    font-size: 12pt;
+    font-weight: 600;
+    margin: 14pt 0 6pt 0;
+}
+
+/* Numbered sections — indentation for sub-sections */
+.contract-body ol {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.contract-body ol ol {
+    padding-left: 16pt;
+}
+
+/* ── SIGNATURES BLOCK ── */
+.contract-signatures {
+    margin-top: 40pt;
+    page-break-inside: avoid;
+}
+
+.contract-signatures h2 {
+    font-size: 14pt;
+    text-align: center;
+    margin-bottom: 24pt;
+    border-bottom: none;
+}
+
+.contract-signatures table {
+    width: 100%;
+    border: none;
+    page-break-inside: avoid;
+}
+
+.contract-signatures td {
+    border: none;
+    padding: 8pt 16pt;
+    vertical-align: top;
+    width: 50%;
+    background: none;
+}
+
+.signature-line {
+    border-bottom: 1.5pt solid #1a1a1a;
+    height: 48pt;
+    margin: 20pt 0 4pt 0;
+}
+
+.signature-label {
+    font-size: 9pt;
+    color: #666666;
+}
+
+.stamp-placeholder {
+    margin-top: 16pt;
+    font-size: 9pt;
+    color: #999999;
+    text-align: center;
+}
+
+/* ── APPENDIX ── */
+.contract-appendix {
+    page-break-before: always;
+}
+
+.contract-appendix h2 {
+    font-size: 16pt;
+    margin-bottom: 16pt;
+}
